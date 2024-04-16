@@ -1,14 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {Navigate, Outlet} from "react-router-dom";
-import type { RootState } from "../redux/store/store"
 import { useEffect, useState } from "react";
 import { CredentialState, saveCredential } from "../redux/reducer/userSlice";
+import { useAppSelector } from "../hooks/useAppSelector";
 
 export default function PublicRoutes() {
     const [isLoading, setIsLoading] = useState(true)
 
-    const credential = useSelector((state: RootState) => ({phone: state.user.phone, uId: state.user.uId, isLogged: state.user.isLogged}))
-    console.log(credential);
+    const credential = useAppSelector((state): CredentialState => state.user)
     
     const dispatch = useDispatch();
 
@@ -24,7 +23,6 @@ export default function PublicRoutes() {
                 isLogged: true
             }
             dispatch(saveCredential(payloadUser))
-            console.log('cred',credential);
         } catch (error) {
             console.log('error', error);
         } finally {

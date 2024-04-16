@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import instance from "../utils/axiosInstance";
 import { CredentialState, saveCredential } from "../redux/reducer/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../redux/store/store"
+import { useDispatch } from "react-redux";
+import { AxiosError } from "axios";
 
 export default function Login() {
     const [number, setNumber] = useState<string>('')
@@ -12,10 +12,6 @@ export default function Login() {
     const [validNumber, setValidNumber] = useState(true)
 
     //Redux
-    const credential = useSelector((state: RootState) => {
-        state.user.uId,
-        state.user.phone
-    })
 
     const dispatch = useDispatch();
 
@@ -40,16 +36,18 @@ export default function Login() {
             })
             console.log('hasil fetch',fetchAPI);
             return fetchAPI.data
-        } catch (error:any) {
-            if (error.response.status == 401) {
-                setError(true)
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                if (error?.response?.status == 401) {
+                    setError(true)
+                }
             }
             console.log('error', error);
             return
         }
     }
 
-    const formHandler = async (e:any) => {
+    const formHandler = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const credentialFetched = await loginHandler(number, password);
         const payloadUser: CredentialState = {
@@ -79,7 +77,7 @@ export default function Login() {
                     <h2 className="text-white text-3xl font-bold py-10 pb-16">Log in or Sign up to Continue</h2>
                 </div>
 
-                <form className="" onSubmit={(e)=>formHandler(e)}>
+                <form className="" onSubmit={formHandler}>
                     <div className="form-input mx-20">
                         <div className="form-number flex justify-between items-center">
                             <input type="text" value='+62' disabled className="text-[#4f5668] text-xl p-4 w-20 h-12 rounded-md bg-transparent border-2 border-[#3a4155]" />

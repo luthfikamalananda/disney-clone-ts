@@ -21,14 +21,6 @@ export const userSlice = createSlice({
       state.uId = action.payload.uId;
       state.phone = action.payload.phone;
       state.isLogged = action.payload.isLogged;
-      
-
-    //   const credToStorage = {
-    //     uId: state.uId,
-    //     phone: state.phone
-    //   }
-
-    //   localStorage.setItem("credential", JSON.stringify(credToStorage));
     },
   },
 })

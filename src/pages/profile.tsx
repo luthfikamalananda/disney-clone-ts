@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
-import type { RootState } from "../redux/store/store"
+import { useAppSelector } from "../hooks/useAppSelector";
+import { CredentialState } from "../redux/reducer/userSlice";
 
 export default function Profile() {
 
-    const credential = useSelector((state: RootState) => ({phone: state.user.phone, uId: state.user.uId}))
+    const credential = useAppSelector((state): CredentialState => state.user)
 
     return (
         <>

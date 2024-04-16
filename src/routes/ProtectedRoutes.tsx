@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {Navigate, Outlet} from "react-router-dom";
-import type { RootState } from "../redux/store/store"
 import { useEffect, useState } from "react";
 import { CredentialState, saveCredential } from "../redux/reducer/userSlice";
-import useAxios from "../hooks/useAxios";
+import { useAppSelector } from "../hooks/useAppSelector";
 
 export default function ProtectedRoutes() {
     const [isLoading, setIsLoading] = useState(true)
 
-    const credential = useSelector((state: RootState) => ({phone: state.user.phone, uId: state.user.uId, isLogged: state.user.isLogged}))
+    // const credential = useSelector((state: RootState) => ({phone: state.user.phone, uId: state.user.uId, isLogged: state.user.isLogged}))
+    const credential = useAppSelector((state): CredentialState => state.user)
     const dispatch = useDispatch();
 
     const getCredential = async () => {
@@ -17,7 +17,6 @@ export default function ProtectedRoutes() {
                 credentials: 'include'
             })
             const token = await getData.json();   
-            console.log('token', token);
             const payloadUser: CredentialState = {
                 uId: token.data.id,
                 phone: token.data.phone,
