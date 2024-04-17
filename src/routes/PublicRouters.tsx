@@ -36,7 +36,7 @@ export default function PublicRoutes() {
 
     return (
         <>
-        {(isLoading ? <h2>loading</h2> : (credential.isLogged === true ? <Navigate to="/profile"/> : <Outlet></Outlet>))}
+        {(isLoading ? <h2>loading</h2> : (credential.isLogged === true ? <Navigate to="/homepage"/> : <Outlet></Outlet>))}
         </>
         
     )

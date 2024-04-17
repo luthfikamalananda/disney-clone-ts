@@ -1,0 +1,4 @@
+DATABASE_URL="mysql://root:@localhost:3306/disney_clone"
+JWT_SECRET="secret"
+TMDB_API_URL="https://api.themoviedb.org/3"
+TMDB_API_KEY="f8f6c5eacfe95af9e685c56bba5d2f15"
