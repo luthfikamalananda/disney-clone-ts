@@ -53,7 +53,8 @@ export default function Login() {
         const payloadUser: CredentialState = {
             uId: credentialFetched.data.id,
             phone: credentialFetched.data.phone,
-            isLogged: true
+            isLogged: true,
+            loading: 'idle'
         }
         console.log(payloadUser,'payload user');
         

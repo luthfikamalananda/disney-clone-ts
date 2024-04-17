@@ -1,11 +1,13 @@
 import useAxios from "../hooks/useAxios";
 import { useEffect, useState } from "react";
+import { movieDummy } from "../utils/dataDummy";
+import MovieContainer from "../component/MovieContainer";
 
 export default function Homepage() {
 
     const [nowPlayingMovies, setNowPlayingMovies] = useState<any[]>([])
     const [topRatedMovies, setTopRatedMovies] = useState<any[]>([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     // const credential = useAppSelector((state): CredentialState => state.user)
     const instance = useAxios();
 
@@ -36,28 +38,23 @@ export default function Homepage() {
     }
 
     useEffect(() => {
-        nowPlayingMoviesData()
-        topRatedMoviesData()
+        // nowPlayingMoviesData()
+        // topRatedMoviesData()
+        console.log(movieDummy);
+        
     }, [])
+    
 
     return (
         <>
             <div className="content-wrapper p-4 bg-[#101414] overflow-hidden">
                 <h2 className="font-extrabold  text-xl text-white">Now Playing</h2>
-                <div className="movie-container flex o gap-4 mt-4 w-full overflow-x-scroll scroll-auto">
-                    {loading ? <h2>loading</h2> : nowPlayingMovies.map((movie) => (
-                        <div key={movie.id} className={`movie-card w-72 h-full flex-none `}>
-                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="h-96" alt="img"  /></div>
-                    )
-                    ) }
+                <div className="movie-container flex o gap-2 mt-4 w-full overflow-x-scroll scroll-auto">
+                    {loading ? <h2>loading</h2> : <MovieContainer movieList={movieDummy} />}
                 </div>
                 <h2 className="font-extrabold  text-xl text-white mt-6">Trending</h2>
-                <div className="movie-container flex o gap-4 mt-4 w-full overflow-x-scroll scroll-auto">
-                    {loading ? <h2>loading</h2> : topRatedMovies.map((movie) => (
-                        <div key={movie.id} className={`movie-card w-72 h-full flex-none `}>
-                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="h-96" alt="img"  /></div>
-                    )
-                    ) }
+                <div className="movie-container flex o gap-2 mt-4 w-full overflow-x-scroll scroll-auto">
+                    {loading ? <h2>loading</h2> : <MovieContainer movieList={movieDummy} />}
                 </div>
             </div>
         </>

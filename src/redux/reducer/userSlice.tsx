@@ -1,17 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface CredentialState {
-  uId: string,
-  phone: string,
-  isLogged: boolean
+  uId: string | null,
+  phone: string | null,
+  isLogged: boolean,
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState: CredentialState = {
-  uId: '',
-  phone: '',
-  isLogged: false
+  uId: null,
+  phone: null,
+  isLogged: false,
+  loading: 'idle' 
 }
+
+export const getCredential = createAsyncThunk(
+  'user/getCredential',
+  async () => {
+    const response = await fetch('http://localhost:3000/v1/accounts/me', {
+      credentials: 'include'
+    })
+    const responseJson = await response.json()
+    return responseJson.data
+  },
+)
 
 export const userSlice = createSlice({
   name: 'user',
@@ -22,6 +35,21 @@ export const userSlice = createSlice({
       state.phone = action.payload.phone;
       state.isLogged = action.payload.isLogged;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getCredential.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.uId = action.payload.id
+      state.phone = action.payload.phone
+      state.isLogged = true
+      state.loading = 'succeeded'
+    })
+    .addCase(getCredential.rejected, (state) => {
+      // Add user to the state array
+      state.uId = null
+      state.phone = null
+      state.isLogged = false
+    })
   },
 })
 

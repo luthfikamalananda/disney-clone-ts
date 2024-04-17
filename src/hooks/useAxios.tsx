@@ -13,9 +13,10 @@ export default function useAxios() {
       async (err) => {
         if (err.response.status === 401) {
             const payloadUser: CredentialState = {
-                uId: '',
-                phone: '',
-                isLogged: true
+                uId: null,
+                phone: null,
+                isLogged: false,
+                loading: 'succeeded'
             }
           dispatch(saveCredential(payloadUser))
         }
