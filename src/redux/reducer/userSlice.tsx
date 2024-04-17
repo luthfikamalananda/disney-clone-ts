@@ -27,7 +27,6 @@ export const getCredential = createAsyncThunk(
       console.log("responseJson =>", responseJson)
 
       if(response.ok) {
-        const responseJson = await response.json()
         return responseJson.data
       } else {
         throw Error(responseJson.message)
@@ -51,21 +50,18 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
     .addCase(getCredential.fulfilled, (state, action) => {
-      // Add user to the state array
       state.uId = action.payload.id
       state.phone = action.payload.phone
       state.isLogged = true
       state.loading = 'succeeded'
     })
     .addCase(getCredential.pending, (state, action) => {
-      // Add user to the state array
       state.loading = 'pending'
     })
     .addCase(getCredential.rejected, (state) => {
-      // Add user to the state array
       state.uId = null
       state.phone = null
-      state.loading = 'succeeded'
+      state.loading = 'failed'
       state.isLogged = false
     })
   },

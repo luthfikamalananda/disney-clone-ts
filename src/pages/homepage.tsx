@@ -40,7 +40,6 @@ export default function Homepage() {
     useEffect(() => {
         // nowPlayingMoviesData()
         // topRatedMoviesData()
-        console.log(movieDummy);
 
     }, [])
 

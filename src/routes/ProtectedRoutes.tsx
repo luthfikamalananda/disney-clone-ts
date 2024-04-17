@@ -50,14 +50,14 @@ export default function ProtectedRoutes() {
     // }, [isLoading])
 
     useEffect(() => {
-        dispatch(getCredential())
+        if (credential.isLogged === false) {
+            dispatch(getCredential())
+        }
     }, [])
 
     return (
         <>
-        {/* {(isLoading ? <h2>loading</h2> : (credential.loading === 'succeeded' ? <Outlet></Outlet> : <Navigate to="/"/>))} */}
-         {/* {(isLoading ? <h2>loading</h2> : (credential.isLogged == true ? <Outlet></Outlet> : <Navigate to="/"/>))} */}
-         {credential.loading === "pending" ? <h2>Loading</h2> : credential.loading == "succeeded" ? <Outlet></Outlet> : <Navigate to="/"/>}
+         {credential.loading === "pending" ? <h2>Loading Protected Routes</h2> : credential.loading == "succeeded" ? <Outlet></Outlet> : credential.loading == 'failed' && <Navigate to="/"/>}
         </>
         
     )
