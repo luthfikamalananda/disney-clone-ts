@@ -1,6 +1,7 @@
 === REDUX ===
 - Semua state taruh di Redux
-- kalau mau import jangan langsung pake useSelector
+- BACA DOKUMENTASI KALO PAKE TYPESCRIPT (boilerplatenya banyak)
+- kalau mau import jangan langsung pake useSelector (pake kode useAppSelector)
 - useSelector dipanggil sekali saja
 - Redux AsyncThunk nggabisa throw error (bikin manual error handling)
    - pakai 
