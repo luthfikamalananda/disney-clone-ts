@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import {Navigate, Outlet} from "react-router-dom";
-import { useEffect, useState } from "react";
-import { CredentialState, getCredential, saveCredential } from "../redux/reducer/userSlice";
+import { useEffect } from "react";
+import { CredentialState, getCredential } from "../redux/reducer/userSlice";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { AppDispatch } from "../redux/store/store";
 

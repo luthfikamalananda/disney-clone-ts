@@ -55,7 +55,7 @@ export const userSlice = createSlice({
       state.isLogged = true
       state.loading = 'succeeded'
     })
-    .addCase(getCredential.pending, (state, action) => {
+    .addCase(getCredential.pending, (state) => {
       state.loading = 'pending'
     })
     .addCase(getCredential.rejected, (state) => {
