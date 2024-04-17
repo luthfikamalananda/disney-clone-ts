@@ -6,7 +6,7 @@ import { useAppSelector } from "../hooks/useAppSelector";
 import { AppDispatch } from "../redux/store/store";
 
 export default function ProtectedRoutes() {
-    const [isLoading, setIsLoading] = useState(true)
+    // const [isLoading, setIsLoading] = useState(true)
 
     const credential = useAppSelector((state): CredentialState => state.user)
     const dispatch = useDispatch<AppDispatch>();
@@ -33,21 +33,31 @@ export default function ProtectedRoutes() {
     //     }
     // }
 
+    // useEffect(() => {
+    //     try {
+    //         setIsLoading(true)
+    //         dispatch(getCredential())
+    //         console.log(credential)
+    //     } catch (error) {
+    //         console.log(error);
+    //     }finally{
+    //         setIsLoading(false)
+    //     }
+    // },[dispatch])
+
+    // useEffect(() => {
+    //     console.log("isLoading => ", isLoading)
+    // }, [isLoading])
+
     useEffect(() => {
-        try {
-            setIsLoading(true)
-            dispatch(getCredential())
-        } catch (error) {
-            console.log(error);
-        }finally{
-            setIsLoading(false)
-        }
-    },[dispatch])
+        dispatch(getCredential())
+    }, [])
 
     return (
         <>
         {/* {(isLoading ? <h2>loading</h2> : (credential.loading === 'succeeded' ? <Outlet></Outlet> : <Navigate to="/"/>))} */}
-         {(isLoading ? <h2>loading</h2> : (credential.isLogged == true ? <Outlet></Outlet> : <Navigate to="/"/>))}
+         {/* {(isLoading ? <h2>loading</h2> : (credential.isLogged == true ? <Outlet></Outlet> : <Navigate to="/"/>))} */}
+         {credential.loading === "pending" ? <h2>Loading</h2> : credential.loading == "succeeded" ? <Outlet></Outlet> : <Navigate to="/"/>}
         </>
         
     )

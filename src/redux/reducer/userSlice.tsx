@@ -18,11 +18,23 @@ const initialState: CredentialState = {
 export const getCredential = createAsyncThunk(
   'user/getCredential',
   async () => {
-    const response = await fetch('http://localhost:3000/v1/accounts/me', {
-      credentials: 'include'
-    })
-    const responseJson = await response.json()
-    return responseJson.data
+    try {
+        const response = await fetch('http://localhost:3000/v1/accounts/me', {
+        credentials: 'include'
+      })
+      console.log("response  =>", response);
+      const responseJson = await response.json()
+      console.log("responseJson =>", responseJson)
+
+      if(response.ok) {
+        const responseJson = await response.json()
+        return responseJson.data
+      } else {
+        throw Error(responseJson.message)
+      }
+    } catch (error) {
+      throw error;
+    }
   },
 )
 
@@ -37,17 +49,23 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getCredential.fulfilled, (state, action) => {
+    builder
+    .addCase(getCredential.fulfilled, (state, action) => {
       // Add user to the state array
       state.uId = action.payload.id
       state.phone = action.payload.phone
       state.isLogged = true
       state.loading = 'succeeded'
     })
+    .addCase(getCredential.pending, (state, action) => {
+      // Add user to the state array
+      state.loading = 'pending'
+    })
     .addCase(getCredential.rejected, (state) => {
       // Add user to the state array
       state.uId = null
       state.phone = null
+      state.loading = 'succeeded'
       state.isLogged = false
     })
   },

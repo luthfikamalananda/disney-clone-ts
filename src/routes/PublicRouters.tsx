@@ -6,7 +6,7 @@ import { useAppSelector } from "../hooks/useAppSelector";
 import { AppDispatch } from "../redux/store/store";
 
 export default function PublicRoutes() {
-    const [isLoading, setIsLoading] = useState(true)
+    // const [isLoading, setIsLoading] = useState(true)
 
     const credential = useAppSelector((state): CredentialState => state.user)
     
@@ -32,19 +32,24 @@ export default function PublicRoutes() {
     //     }
     // }
 
+    // useEffect(() => {
+    //     try {
+    //         dispatch(getCredential())
+    //     } catch (error) {
+    //         console.log(error);
+    //     }finally{
+    //         setIsLoading(false)
+    //     }
+    // },[dispatch])
+
     useEffect(() => {
-        try {
-            dispatch(getCredential())
-        } catch (error) {
-            console.log(error);
-        }finally{
-            setIsLoading(false)
-        }
-    },[dispatch])
+        dispatch(getCredential())
+    }, [])
 
     return (
         <>
-        {(isLoading ? <h2>loading</h2> : (credential.isLogged === true ? <Navigate to="/homepage"/> : <Outlet></Outlet>))}
+        {/* {(isLoading ? <h2>loading</h2> : (credential.isLogged === true ? <Navigate to="/homepage"/> : <Outlet></Outlet>))} */}
+        {credential.loading === "pending" ? <h2>Loading</h2> : credential.isLogged ? <Navigate to="/homepage"/> : <Outlet></Outlet>}
         </>
         
     )
