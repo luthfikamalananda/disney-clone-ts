@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import instance from '../../utils/axiosInstance'
 
 export interface CredentialState {
   uId: string | null,
@@ -19,17 +20,11 @@ export const getCredential = createAsyncThunk(
   'user/getCredential',
   async () => {
     try {
-        const response = await fetch('http://localhost:3000/v1/accounts/me', {
-        credentials: 'include'
-      })
-      console.log("response  =>", response);
-      const responseJson = await response.json()
-      console.log("responseJson =>", responseJson)
+      const response = await instance.get('http://localhost:3000/v1/accounts/me')
+      console.log("response  =>", response)
 
-      if(response.ok) {
-        return responseJson.data
-      } else {
-        throw Error(responseJson.message)
+      if (response.statusText == 'OK') {
+        return response.data.data
       }
     } catch (error) {
       throw error;
@@ -58,10 +53,12 @@ export const userSlice = createSlice({
     .addCase(getCredential.pending, (state) => {
       state.loading = 'pending'
     })
-    .addCase(getCredential.rejected, (state) => {
+    .addCase(getCredential.rejected, (state,action) => {
       state.uId = null
       state.phone = null
       state.loading = 'failed'
+      console.log('rejected jalan', action);
+      
       state.isLogged = false
     })
   },
