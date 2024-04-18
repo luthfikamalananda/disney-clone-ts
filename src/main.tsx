@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store/store.tsx';
 import PublicRoutes from './routes/PublicRouters.tsx';
 import Homepage from './pages/homepage.tsx';
+import DetailMovie from './pages/detailMovie.tsx';
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
         path: "/",
         element: <Login/>,
       },
-    ]
+    ],
+    errorElement: <h1>404 Not Found</h1>
   },
   {
     element: <ProtectedRoutes/>,
@@ -26,7 +28,11 @@ const router = createBrowserRouter([
         path: "/homepage",
         element: <Homepage/>,
       },
-    ]
+      {
+        path: "/homepage/:movieId",
+        element: <DetailMovie/>,
+      },
+    ],
   },
   
 ]);
