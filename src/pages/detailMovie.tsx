@@ -34,8 +34,8 @@ export default function DetailMovie() {
                     data-testid="loader"
                 /></div> : movieDetail.loading === 'succeeded' ?
                     <div className="content-wrapper h-dvh bg-[#101414]">
-                        <div className={`movie-poster h-full w-auto bg-cover bg-no-repeat bg-centery bg-fixed`} style={{ backgroundImage: `url('https://image.tmdb.org/t/p/original${movieDetail.movieDetail.backdrop_path}')` }}>
-                            <div className="movie-description ml-24 drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
+                        <div className={`movie-poster h-full w-auto bg-cover bg-no-repeat bg-center bg-fixed`} style={{ backgroundImage: `url('https://image.tmdb.org/t/p/original${movieDetail.movieDetail.backdrop_path}')` }}>
+                            <div className="movie-description pl-24 drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
                                 <div className="title">
                                     <h2 className="font-bold text-white shadow-black text-9xl pt-32 pl-10">{movieDetail.movieDetail.title}</h2>
                                 </div>

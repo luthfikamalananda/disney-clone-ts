@@ -9,39 +9,13 @@ import NavBar from "../component/NavBar";
 
 export default function Homepage() {
 
-    const [nowPlayingMovies, setNowPlayingMovies] = useState<any[]>([])
-    const [topRatedMovies, setTopRatedMovies] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
-    // const credential = useAppSelector((state): CredentialState => state.user)
+    let scrollAmountNowPlaying = 0;
+    let scrollAmountTrending = 0;
 
     const movieList = useAppSelector((state): MovieListState => state.movieListSlice)
     const dispatch = useDispatch<AppDispatch>();
 
-    // const nowPlayingMoviesData = async () => {
-    //     try {
-    //         setLoading(true)
-    //         const movies = await instance.get('/movies/now-playing')            
-    //         setNowPlayingMovies(movies.data.data.results)
-    //         console.log(movies.data.data.results);
-    //     } catch (error) {
-    //         console.log(error);
-    //     } finally {
-    //         setLoading(false)
-    //     }
-    // }
-
-    // const topRatedMoviesData = async () => {
-    //     try {
-    //         setLoading(true)
-    //         const movies = await instance.get('/movies/top-rated')
-    //         setTopRatedMovies(movies.data.data.results)
-    //         console.log(movies.data.data.results);
-    //     } catch (error) {
-    //         console.log(error);
-    //     } finally {
-    //         setLoading(false)
-    //     }
-    // }
 
     useEffect(() => {
         // nowPlayingMoviesData()
@@ -57,17 +31,34 @@ export default function Homepage() {
             <NavBar />
 
             <div className="content-wrapper p-4 h-dvh pl-32 bg-[#101414] overflow-hidden">
-                <h2 className="font-extrabold  text-xl text-white">Now Playing</h2>
-
-                <div  className="movie-container flex o gap-2 mt-2 w-full overflow-x-scroll no-scrollbar">
+                <h2 className="font-extrabold  text-xl text-white mt-6">Now Playing</h2>
+                <div id='nowPlaying' className="movie-container flex items-center gap-2 mt-[-60px] w-full overflow-x-auto  overflow-y-hidden  no-scrollbar h-[400px] relative group">
+                    <button className="w-[50px] h-[240px] p-10 text-left bg-transparent group-hover:bg-gradient-to-r group-hover:from-[#0a0c0c] text-white fixed left-32 z-20 font-extrabold transition ease-in-out delay-150 scroll-smooth" onClick={() => (document.getElementById('nowPlaying')!.scrollTo({
+                        behavior: "smooth",
+                        top: 0,
+                        left: scrollAmountNowPlaying -= 350
+                    }))}> &lt; </button>
+                    <button className="w-[50px] h-[240px] p-10 text-right text-white fixed right-3 z-50 bg-transparent group-hover:bg-gradient-to-l group-hover:from-[#0a0c0c] font-extrabold transition ease-in-out delay-150 " onClick={() => (document.getElementById('nowPlaying')!.scrollTo({
+                        behavior: "smooth",
+                        top: 0,
+                        left: scrollAmountNowPlaying += 350
+                    }))} > &gt; </button>
                     {loading ? <h2>loading</h2> : <MovieContainer movieList={movieDummy} />}
                 </div>
 
                 <h2 className="font-extrabold  text-xl text-white mt-6">Trending</h2>
-                <button className="w-96" onClick={() => document.getElementById('nowPlaying')!.scrollLeft += 20 }> Kanan </button>
-                <div id='nowPlaying' className="movie-container flex o gap-2 mt-2 w-full overflow-x-auto  no-scrollbar">
+                <div id='trending' className="movie-container flex items-center gap-2 mt-[-60px] w-full overflow-x-auto  overflow-y-hidden  no-scrollbar h-[400px] relative group">
+                    <button className="w-[50px] h-[240px] p-10 text-left bg-transparent group-hover:bg-gradient-to-r group-hover:from-[#0a0c0c] text-white fixed left-32 z-20 font-extrabold transition ease-in-out delay-150 scroll-smooth" onClick={() => (document.getElementById('trending')!.scrollTo({
+                        behavior: "smooth",
+                        top: 0,
+                        left: scrollAmountTrending -= 350
+                    }))}> &lt; </button>
+                    <button className="w-[50px] h-[240px] p-10 text-right text-white fixed right-3 z-50 bg-transparent group-hover:bg-gradient-to-l group-hover:from-[#0a0c0c] font-extrabold transition ease-in-out delay-150 " onClick={() => (document.getElementById('trending')!.scrollTo({
+                        behavior: "smooth",
+                        top: 0,
+                        left: scrollAmountTrending += 350
+                    }))} > &gt; </button>
                     {loading ? <h2>loading</h2> : <MovieContainer movieList={movieDummy} />}
-                    
                 </div>
             </div>
         </>

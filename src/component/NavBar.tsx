@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function NavBar() {
     return (
         <aside id="default-sidebar" className="fixed top-0 left-0 z-40 w-24 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-                <div className="h-full px-3 py-4 overflow-y-auto overflow-x-hidden bg-gradient-to-r from-[#0a0c0c] hover:w-32  hover:bg-gradient-to-r hover:from-black hover:scale-125 dark:bg-gray-800 flex flex-col justify-evenly transition ease-in">
+                <div className="h-full px-3 py-4 overflow-y-auto overflow-x-hidden bg-gradient-to-r from-[#0a0c0c] hover:w-32  hover:bg-gradient-to-r hover:from-black hover:scale-125  flex flex-col justify-evenly transition ease-in">
                     <ul className="space-y-2 font-medium">
                         <li>
                             <Link to={'/homepage'}  className="flex items-center justify-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
