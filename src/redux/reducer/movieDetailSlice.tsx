@@ -19,6 +19,9 @@ export const getDetailMovie = createAsyncThunk(
       try {
         const movies = await instance.get(`/movies/${idMovies}`)
         console.log('MOVIE DETAIL => ', movies);
+        if (movies.statusText == 'OK') {
+          return movies.data.data
+        }
       } catch (error:any) {
         console.log('error thwor', error);
         throw error;
@@ -37,6 +40,8 @@ export const movieListSlice = createSlice({
         builder
         .addCase(getDetailMovie.fulfilled, (state, action) => {
           state.movieDetail = action.payload
+          console.log('movie payload =>', action);
+          
           state.loading = "succeeded"
         })
         .addCase(getDetailMovie.pending, (state) => {

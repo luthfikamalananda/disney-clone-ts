@@ -7,6 +7,7 @@ import { useAppSelector } from "../hooks/useAppSelector";
 import NavBar from "../component/NavBar";
 import { MovieDetailState, getDetailMovie } from "../redux/reducer/movieDetailSlice";
 import { useParams } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 export default function DetailMovie() {
 
@@ -23,9 +24,15 @@ export default function DetailMovie() {
     return (
         <>
             <NavBar />
+            
             <div className="movieDetails-container ml-24" >
-                {movieDetail.loading === 'pending' ? <div className="flex justify-center items-center h-screen"><h2>Loading Movie Detail</h2></div> : movieDetail.loading === 'succeeded' ?
-                    <div className="content-wrapper ml-24 p-4 h-dvh bg-[#101414] overflow-hidden">
+                {movieDetail.loading === 'pending' ? <div className="flex justify-center items-center h-screen bg-[#101414]"><ClipLoader
+                size={150}
+                color="rgba(227, 239, 236, 1)"
+                aria-label="Loading Spinner"
+                data-testid="loader"
+            /></div> : movieDetail.loading === 'succeeded' ?
+                    <div className="content-wrapper p-4 h-dvh bg-[#101414] overflow-hidden">
                         <h2 className="text-white">{movieDetail.movieDetail.title}</h2>
                         <h2 className="text-white">{movieDetail.movieDetail.tagline}</h2>
                         <h2 className="text-white">{movieDetail.movieDetail.genre}</h2>
