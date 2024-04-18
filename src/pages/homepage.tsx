@@ -46,8 +46,8 @@ export default function Homepage() {
     useEffect(() => {
         // nowPlayingMoviesData()
         // topRatedMoviesData()
-        // dispatch(getMovieNowPlaying())
-        // dispatch(getMovieTrending());
+        dispatch(getMovieNowPlaying())
+        dispatch(getMovieTrending());
         console.log(movieList);
         
     }, [])
@@ -57,14 +57,14 @@ export default function Homepage() {
         <>
             <NavBar/>
 
-            <div className="content-wrapper ml-24 p-4 h-dvh bg-[#101414] overflow-hidden">
+            <div className="content-wrapper p-4 h-dvh pl-24 bg-[#101414] overflow-hidden">
                 <h2 className="font-extrabold  text-xl text-white">Now Playing</h2>
                 <div className="movie-container flex o gap-2 mt-2 w-full overflow-x-auto no-scrollbar">
-                    {loading ? <h2>loading</h2> : <MovieContainer movieList={movieDummy} />}
+                    {loading ? <h2>loading</h2> : <MovieContainer movieList={movieList.moviesNowPlaying} />}
                 </div>
                 <h2 className="font-extrabold  text-xl text-white mt-6">Trending</h2>
                 <div className="movie-container flex o gap-2 mt-2 w-full overflow-x-auto no-scrollbar">
-                    {loading ? <h2>loading</h2> : <MovieContainer movieList={movieDummy} />}
+                    {loading ? <h2>loading</h2> : <MovieContainer movieList={movieList.moviesTrending} />}
                 </div>
             </div>
         </>
