@@ -1,7 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import instance from "../../utils/axiosInstance";
 
-
 export type MovieDetailState = {
     movieDetail: any,
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
@@ -20,13 +19,10 @@ export const getDetailMovie = createAsyncThunk(
       try {
         const movies = await instance.get(`/movies/${idMovies}`)
         console.log('MOVIE DETAIL => ', movies);
-        if(movies.statusText === 'OK') {
-          return movies.data.data
-        } else {
-          throw Error(movies.statusText)
-        }
-      } catch (error) {
+      } catch (error:any) {
+        console.log('error thwor', error);
         throw error;
+
       }
     },
   )
@@ -46,9 +42,10 @@ export const movieListSlice = createSlice({
         .addCase(getDetailMovie.pending, (state) => {
           state.loading = 'pending'
         })
-        .addCase(getDetailMovie.rejected, (state, action) => {
+        .addCase(getDetailMovie.rejected, (state, action:any) => {
           state.loading = 'failed',
-          state.error = action.payload
+          console.log('ACTION =>',action);
+          state.error = action.error.message
         })
       },
 })
