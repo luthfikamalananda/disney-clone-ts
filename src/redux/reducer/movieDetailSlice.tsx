@@ -1,21 +1,23 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
 import instance from "../../utils/axiosInstance";
 
 export type MovieDetailState = {
     movieDetail: any,
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
     error: any | null,
+    errorStatus: number | null
 } 
 
 const initialState: MovieDetailState = {
     movieDetail: null,
     loading: 'idle',
-    error: null
+    error: null,
+    errorStatus : null
 }
 
 export const getDetailMovie = createAsyncThunk(
     'movie/getDetailMovie',
-    async (idMovies:string) => {
+    async (idMovies:string , { rejectWithValue }) => {
       try {
         const movies = await instance.get(`/movies/${idMovies}`)
         console.log('MOVIE DETAIL => ', movies);
@@ -24,7 +26,7 @@ export const getDetailMovie = createAsyncThunk(
         }
       } catch (error:any) {
         console.log('error thwor', error);
-        throw error;
+        return rejectWithValue(error.response)
 
       }
     },
@@ -50,7 +52,8 @@ export const movieListSlice = createSlice({
         .addCase(getDetailMovie.rejected, (state, action:any) => {
           state.loading = 'failed',
           console.log('ACTION =>',action);
-          state.error = action.error.message
+          state.error = action.payload.data.message
+          state.errorStatus = action.payload.status
         })
       },
 })

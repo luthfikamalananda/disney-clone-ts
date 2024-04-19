@@ -62,7 +62,7 @@ export default function Login() {
         
 
         if (credentialFetched.data) {
-            navigate('/profile');
+            navigate('/homepage');
             // auth.setCredential(credential.data);
         }
     }

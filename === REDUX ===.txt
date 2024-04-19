@@ -14,3 +14,5 @@
    - pending = loading
    - failed = pindah ke halaman login
    - sucess = lanjut ke outlet
+- Kalau ngehit pakai Axios bakalan langsung ke catch di error, dan jika di throw errornya bakalan langsung ke caseRejected
+- Kalau custom error pakai rejectedWithValue (baca dokumentasi) ditaruh di parameter async ke 2 (..., {rejectedWithValue})
