@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { CredentialState, getCredential } from "../redux/reducer/userSlice";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { AppDispatch } from "../redux/store/store";
+import { ClipLoader } from "react-spinners";
 
 export default function ProtectedRoutes() {
     // const [isLoading, setIsLoading] = useState(true)
@@ -57,7 +58,12 @@ export default function ProtectedRoutes() {
 
     return (
         <>
-         {credential.loading === "pending" ? <h2>Loading Protected Routes</h2> : credential.loading == "succeeded" ? <Outlet></Outlet> : credential.loading == 'failed' && <Navigate to="/"/>}
+         {credential.loading === "pending" ? <div className="flex justify-center items-center h-screen bg-[#101414]"><ClipLoader
+                    size={150}
+                    color="rgba(227, 239, 236, 1)"
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                /></div> : credential.loading == "succeeded" ? <Outlet></Outlet> : credential.loading == 'failed' && <Navigate to="/"/>}
         </>
         
     )
