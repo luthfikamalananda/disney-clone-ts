@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import NavBar from "../component/NavBar";
 import { movieDummy } from "../utils/dataDummy";
 import { useEffect, useState } from "react";
@@ -32,6 +32,7 @@ export default function Search() {
     return (
         <>
             <NavBar />
+            {nowPlayingMovies.loading === "succeeded" && nowPlayingMovies.errorStatus === 401 && <Navigate to={'/'}/>}
             <div className="search-wrapper content-wrapper p-4 h-screen pl-32 bg-[#101414] overflow-x-hidden">
                 <div className="input-wrapper mt-2 flex items-center w-full h-16 bg-[#252833] rounded-lg">
                     <div className="pl-4">

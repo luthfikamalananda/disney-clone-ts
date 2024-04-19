@@ -30,7 +30,7 @@ export default function Homepage() {
     return (
         <>
             <NavBar />
-
+            {movieList.loading === 'succeeded' && movieList.errorStatus === 401 && <Navigate to={'/'}/> }
             <div className="content-wrapper p-4 h-screen pl-32 bg-[#101414] overflow-x-hidden">
 
                 <div className="movie-wrapper relative">
@@ -46,7 +46,7 @@ export default function Homepage() {
                             top: 0,
                             left: scrollAmountNowPlaying += 350
                         }))} > &gt; </button>
-                        {movieList.loading === 'pending' ? <h2 className="text-white">loading</h2> : movieList.loading === 'succeeded' && movieList.errorStatus !== 401 ? <MovieContainer movieList={movieList.moviesNowPlaying} /> : <Navigate to={'/'}/>}
+                        {movieList.loading === 'pending' ? <h2 className="text-white">loading</h2> : movieList.loading === 'succeeded' && <MovieContainer movieList={movieList.moviesNowPlaying} /> }
                     </div>
                 </div>
 
@@ -63,7 +63,7 @@ export default function Homepage() {
                             top: 0,
                             left: scrollAmountTrending += 350
                         }))} > &gt; </button>
-                        {movieList.loading === 'pending' ? <h2 className="text-white">loading</h2> : movieList.loading === 'succeeded' && movieList.errorStatus !== 401 ? <MovieContainer movieList={movieList.moviesTrending} /> : <Navigate to={'/'}/>}
+                        {movieList.loading === 'pending' ? <h2 className="text-white">loading</h2> : movieList.loading === 'succeeded' &&  <MovieContainer movieList={movieList.moviesTrending} />}
                     </div>
                 </div>
             </div>
