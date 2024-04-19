@@ -8,6 +8,7 @@ import { useAppSelector } from "../hooks/useAppSelector";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store/store";
 import { MovieSearchedState, getSearchedMovies } from "../redux/reducer/movieSearchedSlice";
+import { MovieListState, getMovieNowPlaying } from "../redux/reducer/movieListSlice";
 
 
 export default function Search() {
@@ -15,12 +16,15 @@ export default function Search() {
     const [debouncedInput] = useDebounce(inputSearch, 1000);
     
     const searchedMovies:any = useAppSelector((state): MovieSearchedState => state.searchedMovies)
+    const nowPlayingMovies = useAppSelector((state):MovieListState => state.movieListSlice)
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         if (debouncedInput !== '') {
             dispatch(getSearchedMovies(debouncedInput))
             console.log(searchedMovies);
+        } else if(debouncedInput == '') {
+            dispatch(getMovieNowPlaying())
         }
         
     }, [debouncedInput])
@@ -28,7 +32,7 @@ export default function Search() {
     return (
         <>
             <NavBar />
-            <div className="search-wrapper content-wrapper p-4 h-full pl-32 bg-[#101414] overflow-x-hidden">
+            <div className="search-wrapper content-wrapper p-4 h-screen pl-32 bg-[#101414] overflow-x-hidden">
                 <div className="input-wrapper mt-2 flex items-center w-full h-16 bg-[#252833] rounded-lg">
                     <div className="pl-4">
                         <span>
@@ -39,9 +43,9 @@ export default function Search() {
                     <input onChange={(e) => setInputSearch(e.target.value)} value={inputSearch} type="text" className="w-full p-4 rounded-lg bg-transparent text-xl font-semibold outline-none text-white" autoComplete="off" placeholder="Movies, Shows and More" />
                 </div>
                 <div className="movie-wrapper">
-                    {searchedMovies.loading === 'succeeded' ? 
+                    {debouncedInput ? searchedMovies.loading === 'succeeded' &&
                     <>
-                        <h2 className="font-extrabold  text-xl text-white mt-10 mb-3">Now Playing</h2>
+                        <h2 className="font-extrabold  text-xl text-white mt-10 mb-3">Your Search : {debouncedInput}</h2>
                         <div id='nowPlaying' className="movie-container flex gap-x-2 gap-y-6 flex-wrap justify-start flex-none">
                             {searchedMovies.searchedMovies.results.map((movie:any) => (
                                 <div key={movie.id} className={`movie-card`}>
@@ -50,11 +54,10 @@ export default function Search() {
                             ))}
                         </div>
                     </> 
-                    : 
-                    <>
+                    : <>
                     <h2 className="font-extrabold  text-xl text-white mt-10 mb-3">Now Playing</h2>
                     <div id='nowPlaying' className="movie-container flex gap-x-2 gap-y-6 flex-wrap justify-start">
-                        {movieDummy.map((movie) => (
+                        {nowPlayingMovies.moviesNowPlaying.map((movie) => (
                             <div key={movie.id} className={`movie-card`}>
                                 <Link to={`/homepage/${movie.id}`}><img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className={`h-60 hover:scale-150 duration-150 hover:relative`} alt="img" /></Link>
                             </div>
