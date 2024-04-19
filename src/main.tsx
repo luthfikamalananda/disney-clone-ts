@@ -9,6 +9,7 @@ import { store } from './redux/store/store.tsx';
 import PublicRoutes from './routes/PublicRouters.tsx';
 import Homepage from './pages/homepage.tsx';
 import DetailMovie from './pages/detailMovie.tsx';
+import Search from './pages/search.tsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/homepage/:movieId",
         element: <DetailMovie/>,
+      },
+      {
+        path: "/search",
+        element: <Search/>,
       },
     ],
   },

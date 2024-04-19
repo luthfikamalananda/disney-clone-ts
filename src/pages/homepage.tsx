@@ -36,12 +36,12 @@ export default function Homepage() {
                 <div className="movie-wrapper relative">
                     <h2 className="font-extrabold  text-xl text-white mt-2">Now Playing</h2>
                     <div id='nowPlaying' className="movie-container flex items-center gap-2 mt-[-60px] w-full overflow-x-auto  overflow-y-hidden  no-scrollbar h-[400px] group">
-                        <button className="w-[50px] h-[240px] p-10 text-left bg-transparent group-hover:bg-gradient-to-r group-hover:from-[#0a0c0c] text-white absolute left-0 z-20 font-extrabold transition ease-in-out delay-150 scroll-smooth" onClick={() => (document.getElementById('nowPlaying')!.scrollTo({
+                        <button className="w-[50px] h-[240px] p-10 text-left bg-transparent scale-0 group-hover:scale-100 group-hover:bg-gradient-to-r group-hover:from-[#0a0c0c] text-white absolute left-0 font-extrabold transition ease-in-out delay-100" onClick={() => (document.getElementById('nowPlaying')!.scrollTo({
                             behavior: "smooth",
                             top: 0,
                             left: scrollAmountNowPlaying -= 350
                         }))}> &lt; </button>
-                        <button className="w-[50px] h-[240px] p-10 text-right text-white absolute right-0 z-50 bg-transparent group-hover:bg-gradient-to-l group-hover:from-[#0a0c0c] font-extrabold transition ease-in-out delay-150 " onClick={() => (document.getElementById('nowPlaying')!.scrollTo({
+                        <button className="w-[50px] h-[240px] p-10 text-right text-white absolute right-0 scale-0 group-hover:scale-100 bg-transparent group-hover:bg-gradient-to-l group-hover:from-[#0a0c0c] font-extrabold transition ease-in-out delay-100 " onClick={() => (document.getElementById('nowPlaying')!.scrollTo({
                             behavior: "smooth",
                             top: 0,
                             left: scrollAmountNowPlaying += 350
