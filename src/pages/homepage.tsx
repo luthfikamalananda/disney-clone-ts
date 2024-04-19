@@ -6,6 +6,7 @@ import { AppDispatch } from "../redux/store/store";
 import { MovieListState, getMovieNowPlaying, getMovieTrending } from "../redux/reducer/movieListSlice";
 import { useAppSelector } from "../hooks/useAppSelector";
 import NavBar from "../component/NavBar";
+import { Navigate } from "react-router-dom";
 
 export default function Homepage() {
 
@@ -20,8 +21,8 @@ export default function Homepage() {
     useEffect(() => {
         // nowPlayingMoviesData()
         // topRatedMoviesData()
-        // dispatch(getMovieNowPlaying())
-        // dispatch(getMovieTrending());
+        dispatch(getMovieNowPlaying())
+        dispatch(getMovieTrending());
         console.log(movieList);
 
     }, [])
@@ -45,7 +46,7 @@ export default function Homepage() {
                             top: 0,
                             left: scrollAmountNowPlaying += 350
                         }))} > &gt; </button>
-                        {loading ? <h2>loading</h2> : <MovieContainer movieList={movieDummy} />}
+                        {movieList.loading === 'pending' ? <h2 className="text-white">loading</h2> : movieList.loading === 'succeeded' && movieList.errorStatus !== 401 ? <MovieContainer movieList={movieList.moviesNowPlaying} /> : <Navigate to={'/'}/>}
                     </div>
                 </div>
 
@@ -62,7 +63,7 @@ export default function Homepage() {
                             top: 0,
                             left: scrollAmountTrending += 350
                         }))} > &gt; </button>
-                        {loading ? <h2>loading</h2> : <MovieContainer movieList={movieDummy} />}
+                        {movieList.loading === 'pending' ? <h2 className="text-white">loading</h2> : movieList.loading === 'succeeded' && movieList.errorStatus !== 401 ? <MovieContainer movieList={movieList.moviesTrending} /> : <Navigate to={'/'}/>}
                     </div>
                 </div>
             </div>

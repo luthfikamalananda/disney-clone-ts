@@ -5,49 +5,48 @@ import instance from "../../utils/axiosInstance";
 export type MovieListState = {
     moviesNowPlaying: any[],
     moviesTrending: any[],
-    loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+    loading: 'idle' | 'pending' | 'succeeded' | 'failed',
+    errorStatus: number | null
 } 
 
 const initialState: MovieListState = {
     moviesNowPlaying: [],
     moviesTrending: [],
-    loading: 'idle'
+    loading: 'idle',
+    errorStatus: null
 }
 
 export const getMovieNowPlaying = createAsyncThunk(
     'movieList/getMovieNowPlaying',
-    async () => {
+    async (_, {rejectWithValue}) => {
       try {
         const movies = await instance.get('/movies/now-playing')
-        console.log('response movies', movies);
-        
+        console.log('response movies getNowPlaying', movies);
   
         if(movies.statusText === 'OK') {
           return movies.data.data.results
-        } else {
-          throw Error(movies.statusText)
-        }
-      } catch (error) {
-        throw error;
+        } 
+      } catch (error:any) {
+        console.log('error dari now playing', error);
+        return rejectWithValue(error.response)
       }
     },
   )
 
   export const getMovieTrending = createAsyncThunk(
     'movieList/getMovieTrending',
-    async () => {
+    async (_, {rejectWithValue}) => {
       try {
         const movies = await instance.get('/movies/top-rated')
-        console.log('response movies', movies);
         
-  
         if(movies.statusText === 'OK') {
           return movies.data.data.results
         } else {
           throw Error(movies.statusText)
         }
-      } catch (error) {
-        throw error;
+      } catch (error:any) {
+        console.log('error dari now playing', error);
+        return rejectWithValue(error.response)
       }
     },
   )
@@ -69,8 +68,10 @@ export const movieListSlice = createSlice({
         .addCase(getMovieNowPlaying.pending, (state) => {
           state.loading = 'pending'
         })
-        .addCase(getMovieNowPlaying.rejected, (state) => {
+        .addCase(getMovieNowPlaying.rejected, (state,action:any) => {
           state.loading = 'failed'
+          console.log('error yang sudah di action',action);
+          state.errorStatus = action.payload.status
         })
         .addCase(getMovieTrending.fulfilled, (state, action) => {
           state.moviesTrending = action.payload
@@ -79,8 +80,10 @@ export const movieListSlice = createSlice({
         .addCase(getMovieTrending.pending, (state) => {
           state.loading = 'pending'
         })
-        .addCase(getMovieTrending.rejected, (state) => {
+        .addCase(getMovieTrending.rejected, (state,action:any) => {
           state.loading = 'failed'
+          console.log('error yang sudah di action',action);
+          state.errorStatus = action.payload.status
         })
       },
 })
