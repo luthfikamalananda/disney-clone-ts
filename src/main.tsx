@@ -10,6 +10,7 @@ import PublicRoutes from './routes/PublicRouters.tsx';
 import Homepage from './pages/homepage.tsx';
 import DetailMovie from './pages/detailMovie.tsx';
 import Search from './pages/search.tsx';
+import TestingPage from './pages/testingPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         path: "/search",
         element: <Search/>,
       },
+      {
+        path: "/testing",
+        element: <TestingPage/>
+      }
     ],
   },
   
