@@ -75,7 +75,7 @@ export default function Login() {
 
             <div className="wrapper flex flex-col justify-center items-center pt-28 mx-auto w-4/12">
                 <div className="title">
-                    <h2 className="text-white text-3xl font-bold py-10 pb-16">Log in or Sign up to Continue</h2>
+                    <h2 className="text-white text-3xl font-bold py-10 pb-16">Testing Branch</h2>
                 </div>
 
                 <form className="" onSubmit={formHandler}>
