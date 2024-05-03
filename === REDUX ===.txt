@@ -1,18 +1,2 @@
 === REDUX ===
-- Semua state taruh di Redux
-- BACA DOKUMENTASI KALO PAKE TYPESCRIPT (boilerplatenya banyak)
-- kalau mau import jangan langsung pake useSelector (pake kode useAppSelector)
-- useSelector dipanggil sekali saja
-- Redux AsyncThunk nggabisa throw error (bikin manual error handling)
-   - pakai 
-     try{if status.ok 
-     else throw Error(responseJson.messgae)}
-     catch (error)
-     throw error 
-- ^^ ngethrow error 2x, dari try ke catch biar masuk ke error case rejected
-- ternary operator di PrivateRoutes pakai credential.loading (success, failed, pending)
-   - pending = loading
-   - failed = pindah ke halaman login
-   - sucess = lanjut ke outlet
-- Kalau ngehit pakai Axios bakalan langsung ke catch di error, dan jika di throw errornya bakalan langsung ke caseRejected
-- Kalau custom error pakai rejectedWithValue (baca dokumentasi) ditaruh di parameter async ke 2 (..., {rejectedWithValue})
+TESTINGGGGGG
